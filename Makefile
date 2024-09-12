@@ -2,7 +2,8 @@ NAME = pong
 
 # Source files
 
-SRC = srcs/main.c
+SRC = srcs/main.c \
+	  srcs/ansi.c
 
 OBJ = $(SRC:.c=.o)
 

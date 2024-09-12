@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ansi.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 21:50:19 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/12 23:06:05 by mle-flem         ###   ########.fr       */
+/*   Created: 2024/09/12 23:04:02 by mle-flem          #+#    #+#             */
+/*   Updated: 2024/09/12 23:06:42 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <stdlib.h>
 #include <unistd.h>
 
 #include "ansi.h"
 
-void	sigint_handler(int sig)
+void	clear_screen(void)
 {
-	(void) sig;
-	exit_fullscreen();
-	exit(0);
+	write(1, (char []){0x1b, '[', 'H'}, 3);
 }
 
-int	main(void)
+void	enter_fullscreen(void)
 {
-	enter_fullscreen();
-	signal(SIGINT, sigint_handler);
-	write(1, "Hello world!", 12);
-	while (1)
-		sleep(1);
-	return (0);
+	write(1, (char []){0x1b, '[', '?', '1', '0', '4', '9', 'h'}, 8);
+	clear_screen();
+}
+
+void	exit_fullscreen(void)
+{
+	write(1, (char []){0x1b, '[', '?', '1', '0', '4', '9', 'l'}, 8);
 }
