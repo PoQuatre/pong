@@ -6,7 +6,7 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 21:50:19 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/13 04:37:19 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/13 20:30:18 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(void)
 		start = end;
 	}
 	exit_fullscreen();
+	restore_term(term);
 	free(term);
 	return (0);
 }

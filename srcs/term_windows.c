@@ -6,13 +6,14 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:12:43 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/13 19:49:36 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/13 20:35:59 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <windows.h>
 
+#include "libft.h"
 #include "term.h"
 #include "types.h"
 
@@ -36,4 +37,14 @@ void	set_term_bit(t_term *term, DWORD bit, t_bool state)
 	else
 		term->current &= ~bit;
 	SetConsoleMode(term->handle, term->current);
+}
+
+void	restore_term(t_term *term)
+{
+	int	c;
+
+	c = ft_getchar();
+	while (c != -1)
+		c = ft_getchar();
+	SetConsoleMode(term->handle, term->original);
 }

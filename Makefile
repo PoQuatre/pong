@@ -5,7 +5,8 @@ NAME = pong
 SRC = srcs/main.c \
 	  srcs/ansi.c \
 	  srcs/term_utils.c \
-	  srcs/timer.c
+	  srcs/timer.c \
+	  srcs/libft/ft_getchar.c \
 
 IS_UNIX := $(shell echo | $(CC) -dM -E - | grep -E '_WIN32')
 ifeq ($(IS_UNIX),)
