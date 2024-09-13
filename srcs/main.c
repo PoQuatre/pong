@@ -6,7 +6,7 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 21:50:19 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/13 02:10:38 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/13 03:06:11 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 #include "term.h"
 #include "types.h"
 
-static t_bool	g_is_running = 1;
+static volatile sig_atomic_t	g_stop = 0;
 
 void	sigint_handler(int sig)
 {
 	(void) sig;
-	g_is_running = 0;
+	g_stop = 1;
 }
 
 int	main(void)
@@ -36,7 +36,7 @@ int	main(void)
 	set_echo_off(term);
 	set_canon_off(term);
 	write(1, "Hello world!", 12);
-	while (g_is_running)
+	while (!g_stop)
 		sleep(1);
 	exit_fullscreen();
 	free(term);
