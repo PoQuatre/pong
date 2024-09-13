@@ -5,7 +5,8 @@ NAME = pong
 SRC = srcs/main.c \
 	  srcs/ansi.c \
 	  srcs/term.c \
-	  srcs/term_utils.c
+	  srcs/term_utils.c \
+	  srcs/timer.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -11,11 +11,13 @@
 /* ************************************************************************** */
 
 #include <signal.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
 #include "ansi.h"
 #include "term.h"
+#include "timer.h"
 #include "types.h"
 
 static volatile sig_atomic_t	g_stop = 0;
@@ -28,15 +30,23 @@ void	sigint_handler(int sig)
 
 int	main(void)
 {
-	t_term	*term;
+	t_term			*term;
+	double			start;
+	double			end;
 
 	signal(SIGINT, sigint_handler);
 	term = init_term();
 	set_echo_off(term);
 	set_canon_off(term);
 	enter_fullscreen();
+	start = get_time_in_seconds();
 	while (!g_stop)
+	{
+		end = get_time_in_seconds();
+		printf("Time between iterations: %.9f seconds\n", end - start);
 		sleep(1);
+		start = end;
+	}
 	exit_fullscreen();
 	free(term);
 	return (0);
