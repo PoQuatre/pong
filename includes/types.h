@@ -6,7 +6,7 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:06:11 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/13 04:45:19 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/13 22:57:05 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,23 @@ typedef struct s_term
 typedef struct termios	t_term;
 
 # endif
+
+typedef struct s_vector
+{
+	int	x;
+	int	y;
+}	t_vector;
+
+typedef struct s_game_state
+{
+	int			player_score;
+	int			enemy_score;
+	int			player_position;
+	int			player_velocity;
+	int			enemy_position;
+	int			enemy_velocity;
+	t_vector	*ball_position;
+	t_vector	*ball_velocity;
+}	t_game_state;
 
 #endif

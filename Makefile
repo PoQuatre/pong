@@ -3,10 +3,14 @@ NAME = pong
 # Source files
 
 SRC = srcs/main.c \
+	  srcs/game.c \
 	  srcs/ansi.c \
 	  srcs/term_utils.c \
 	  srcs/timer.c \
 	  srcs/libft/ft_getchar.c \
+	  srcs/libft/ft_strlen.c \
+	  srcs/libft/ft_putstr.c \
+	  srcs/libft/ft_putstr_err.c \
 
 IS_UNIX := $(shell echo | $(CC) -dM -E - | grep -E '_WIN32')
 ifeq ($(IS_UNIX),)
