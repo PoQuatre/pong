@@ -4,9 +4,15 @@ NAME = pong
 
 SRC = srcs/main.c \
 	  srcs/ansi.c \
-	  srcs/term.c \
 	  srcs/term_utils.c \
 	  srcs/timer.c
+
+IS_UNIX := $(shell echo | $(CC) -dM -E - | grep -E '_WIN32')
+ifeq ($(IS_UNIX),)
+	SRC += srcs/term_unix.c
+else
+	SRC += srcs/term_windows.c
+endif
 
 OBJ = $(SRC:.c=.o)
 
@@ -37,7 +43,7 @@ clean:
 
 .PHONY: fclean
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(NAME).exe
 
 .PHONY: re
 re: fclean all
