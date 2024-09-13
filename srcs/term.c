@@ -1,44 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   term.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 21:50:19 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/13 02:10:38 by mle-flem         ###   ########.fr       */
+/*   Created: 2024/09/13 00:12:43 by mle-flem          #+#    #+#             */
+/*   Updated: 2024/09/13 00:27:26 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <termios.h>
 
-#include "ansi.h"
 #include "term.h"
 #include "types.h"
 
-static t_bool	g_is_running = 1;
-
-void	sigint_handler(int sig)
-{
-	(void) sig;
-	g_is_running = 0;
-}
-
-int	main(void)
+t_term	*init_term(void)
 {
 	t_term	*term;
 
-	term = init_term();
-	enter_fullscreen();
-	signal(SIGINT, sigint_handler);
-	set_echo_off(term);
-	set_canon_off(term);
-	write(1, "Hello world!", 12);
-	while (g_is_running)
-		sleep(1);
-	exit_fullscreen();
-	free(term);
-	return (0);
+	term = malloc(sizeof(t_term));
+	tcgetattr(1, term);
+	return (term);
+}
+
+void	set_term_bit(t_term *term, tcflag_t bit, t_bool state)
+{
+	if (state)
+		term->c_lflag |= bit;
+	else
+		term->c_lflag &= ~bit;
+	tcsetattr(1, TCSANOW, term);
 }

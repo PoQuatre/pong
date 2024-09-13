@@ -3,7 +3,9 @@ NAME = pong
 # Source files
 
 SRC = srcs/main.c \
-	  srcs/ansi.c
+	  srcs/ansi.c \
+	  srcs/term.c \
+	  srcs/term_utils.c
 
 OBJ = $(SRC:.c=.o)
 
