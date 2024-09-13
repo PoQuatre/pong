@@ -6,7 +6,7 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:12:43 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/13 21:24:21 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:32:50 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,15 @@ void	set_term_bit(t_term *term, tcflag_t bit, t_bool state)
 	tcsetattr(0, TCSANOW, term);
 }
 
+void	flush_term_stdin(t_term *term)
+{
+	(void) term;
+	tcflush(0, TCIFLUSH);
+}
+
 void	restore_term(t_term *term)
 {
-	tcflush(0, TCIFLUSH);
+	flush_term_stdin(term);
 	set_echo_on(term);
 	set_canon_on(term);
 }

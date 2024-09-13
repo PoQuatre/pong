@@ -6,7 +6,7 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:12:43 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/13 21:22:22 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:32:16 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,13 @@ void	set_term_bit(t_term *term, DWORD bit, t_bool state)
 	SetConsoleMode(term->handle, term->current);
 }
 
-void	restore_term(t_term *term)
+void	flush_term_stdin(t_term *term)
 {
 	FlushConsoleInputBuffer(term->handle);
+}
+
+void	restore_term(t_term *term)
+{
+	flush_term_stdin(term);
 	SetConsoleMode(term->handle, term->original);
 }

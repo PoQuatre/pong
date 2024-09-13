@@ -6,7 +6,7 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 21:50:19 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/13 20:30:18 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:33:13 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	main(void)
 	{
 		end = get_time_in_seconds();
 		printf("Time between iterations: %.9f seconds\n", end - start);
+		flush_term_stdin(term);
 		sleep(1);
 		start = end;
 	}
