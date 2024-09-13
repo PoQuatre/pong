@@ -6,19 +6,38 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 23:58:10 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/13 00:14:09 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/13 04:45:11 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TERM_H
 # define TERM_H
 
-# include <termios.h>
+# ifdef _WIN32
+#  include <windows.h>
+# else
+#  include <termios.h>
+# endif
 
 # include "types.h"
 
 t_term	*init_term(void);
+
+# ifdef _WIN32
+
+void	set_term_bit(t_term *term, DWORD bit, t_bool state);
+
+#  define TERM_ECHO ENABLE_ECHO_INPUT
+#  define TERM_CANON ENABLE_LINE_INPUT
+
+# else
+
 void	set_term_bit(t_term *term, tcflag_t bit, t_bool state);
+
+#  define TERM_ECHO ECHO
+#  define TERM_CANON ICANON
+
+# endif
 
 void	set_echo_on(t_term *term);
 void	set_echo_off(t_term *term);
