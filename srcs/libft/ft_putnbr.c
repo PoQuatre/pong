@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/13 20:22:47 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/13 22:51:39 by mle-flem         ###   ########.fr       */
+/*   Created: 2024/09/14 01:10:58 by mle-flem          #+#    #+#             */
+/*   Updated: 2024/09/14 01:13:05 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include <unistd.h>
 
-int		ft_getchar(void);
-int		ft_strlen(char *str);
-void	ft_putstr(char *str);
-void	ft_putstr_err(char *str);
-void	ft_putnbr(int nb);
-void	ft_putnbr_err(int nb);
+#include "libft.h"
 
-#endif
+void	ft_putnbr(int nb)
+{
+	long	l_nb;
+
+	l_nb = nb;
+	if (l_nb < 0)
+	{
+		write(1, "-", 1);
+		l_nb = -l_nb;
+	}
+	if (l_nb >= 10)
+		ft_putnbr(l_nb / 10);
+	write(1, &"0123456789"[l_nb % 10], 1);
+}

@@ -6,7 +6,7 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:06:11 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/13 22:57:05 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/14 01:47:26 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,22 @@ typedef unsigned char	t_bool;
 
 typedef struct s_term
 {
-	HANDLE	handle;
-	DWORD	original;
-	DWORD	current;
+	HANDLE			h_stdin;
+	HANDLE			h_stdout;
+	DWORD			original;
+	DWORD			current;
+	unsigned int	cols;
+	unsigned int	rows;
 }	t_term;
 
 # else
 
-typedef struct termios	t_term;
+typedef struct s_term
+{
+	struct termios	*termios;
+	unsigned int	cols;
+	unsigned int	rows;
+}	t_term;
 
 # endif
 

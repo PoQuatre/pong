@@ -6,21 +6,19 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 21:50:19 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/13 22:59:45 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/14 02:06:20 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
 #include <libgen.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 
 #include "ansi.h"
+#include "errors.h"
 #include "game.h"
-#include "libft.h"
 #include "term.h"
 #include "timer.h"
 #include "types.h"
@@ -31,14 +29,6 @@ void	sigint_handler(int sig)
 {
 	(void) sig;
 	g_stop = 1;
-}
-
-t_bool	print_errno(char *prog_name)
-{
-	ft_putstr_err(prog_name);
-	ft_putstr_err(": error: ");
-	ft_putstr_err(strerror(errno));
-	return (1);
 }
 
 t_bool	start_game(char *prog_name, t_term **term, t_game_state **game_state)
@@ -79,10 +69,12 @@ int	main(int ac, char **av)
 	start = get_time_in_seconds();
 	while (!g_stop)
 	{
+		update_term_size(term);
+		printf("Updated term size to: %d x %d\n", term->cols, term->rows);
 		end = get_time_in_seconds();
 		printf("Time between iterations: %.9f seconds\n", end - start);
-		update_game_state(state, end - start);
-		draw_game_state(state, end - start);
+		update_game_state(term, state, end - start);
+		draw_game_state(term, state, end - start);
 		flush_term_stdin(term);
 		sleep(1);
 		start = end;

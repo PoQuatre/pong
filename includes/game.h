@@ -16,7 +16,9 @@
 # include "types.h"
 
 t_game_state	*init_game_state(void);
-void			update_game_state(t_game_state *state, double delta);
-void			draw_game_state(t_game_state *state, double delta);
+void			update_game_state(t_term *term, t_game_state *state,
+					double delta);
+void			draw_game_state(t_term *term, t_game_state *state,
+					double delta);
 
 #endif

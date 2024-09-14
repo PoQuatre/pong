@@ -32,17 +32,23 @@ t_game_state	*init_game_state(void)
 	state->ball_velocity = malloc(sizeof(t_vector));
 	if (!state->ball_position || !state->ball_velocity)
 		return (NULL);
+	state->ball_position->x = 0;
+	state->ball_position->y = 0;
+	state->ball_velocity->x = 0;
+	state->ball_velocity->y = 0;
 	return (state);
 }
 
-void	update_game_state(t_game_state *state, double delta)
+void	update_game_state(t_term *term, t_game_state *state, double delta)
 {
+	(void) term;
 	(void) state;
 	(void) delta;
 }
 
-void	draw_game_state(t_game_state *state, double delta)
+void	draw_game_state(t_term *term, t_game_state *state, double delta)
 {
+	(void) term;
 	(void) state;
 	(void) delta;
 }

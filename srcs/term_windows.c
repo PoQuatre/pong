@@ -6,7 +6,7 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:12:43 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/13 21:32:16 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/14 02:12:08 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,12 @@ t_term	*init_term(void)
 	term = malloc(sizeof(t_term));
 	if (!term)
 		return (NULL);
-	term->handle = GetStdHandle(STD_INPUT_HANDLE);
-	GetConsoleMode(term->handle, &term->original);
+	term->h_stdin = GetStdHandle(STD_INPUT_HANDLE);
+	term->h_stdout = GetStdHandle(STD_OUTPUT_HANDLE);
+	GetConsoleMode(term->h_stdin, &term->original);
 	term->current = term->original;
+	term->cols = 0;
+	term->rows = 0;
 	return (term);
 }
 
@@ -35,16 +38,26 @@ void	set_term_bit(t_term *term, DWORD bit, t_bool state)
 		term->current |= bit;
 	else
 		term->current &= ~bit;
-	SetConsoleMode(term->handle, term->current);
+	SetConsoleMode(term->h_stdin, term->current);
 }
 
 void	flush_term_stdin(t_term *term)
 {
-	FlushConsoleInputBuffer(term->handle);
+	FlushConsoleInputBuffer(term->h_stdin);
 }
 
 void	restore_term(t_term *term)
 {
 	flush_term_stdin(term);
-	SetConsoleMode(term->handle, term->original);
+	SetConsoleMode(term->h_stdin, term->original);
+}
+
+t_bool	update_term_size(t_term *term)
+{
+	CONSOLE_SCREEN_BUFFER_INFO	csbi;
+
+	GetConsoleScreenBufferInfo(term->h_stdout, &csbi);
+	term->cols = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+	term->rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+	return (1);
 }

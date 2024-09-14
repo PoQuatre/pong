@@ -6,11 +6,12 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:12:43 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/13 21:32:50 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/14 02:11:57 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <sys/ioctl.h>
 #include <termios.h>
 
 #include "term.h"
@@ -23,17 +24,22 @@ t_term	*init_term(void)
 	term = malloc(sizeof(t_term));
 	if (!term)
 		return (NULL);
-	tcgetattr(0, term);
+	term->cols = 0;
+	term->rows = 0;
+	term->termios = malloc(sizeof(struct termios));
+	if (!term->termios)
+		return (NULL);
+	tcgetattr(0, term->termios);
 	return (term);
 }
 
 void	set_term_bit(t_term *term, tcflag_t bit, t_bool state)
 {
 	if (state)
-		term->c_lflag |= bit;
+		term->termios->c_lflag |= bit;
 	else
-		term->c_lflag &= ~bit;
-	tcsetattr(0, TCSANOW, term);
+		term->termios->c_lflag &= ~bit;
+	tcsetattr(0, TCSANOW, term->termios);
 }
 
 void	flush_term_stdin(t_term *term)
@@ -47,4 +53,14 @@ void	restore_term(t_term *term)
 	flush_term_stdin(term);
 	set_echo_on(term);
 	set_canon_on(term);
+}
+
+t_bool	update_term_size(t_term *term)
+{
+	struct winsize	w;
+
+	ioctl(0, TIOCGWINSZ, &w);
+	term->cols = w.ws_col;
+	term->rows = w.ws_row;
+	return (1);
 }
