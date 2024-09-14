@@ -31,6 +31,8 @@ typedef struct s_term
 	DWORD			current;
 	unsigned int	cols;
 	unsigned int	rows;
+	unsigned int	old_cols;
+	unsigned int	old_rows;
 }	t_term;
 
 # else
@@ -40,6 +42,8 @@ typedef struct s_term
 	struct termios	*termios;
 	unsigned int	cols;
 	unsigned int	rows;
+	unsigned int	old_cols;
+	unsigned int	old_rows;
 }	t_term;
 
 # endif

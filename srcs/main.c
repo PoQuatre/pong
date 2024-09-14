@@ -42,6 +42,7 @@ t_bool	start_game(char *prog_name, t_term **term, t_game_state **game_state)
 	set_echo_off(*term);
 	set_canon_off(*term);
 	enter_fullscreen();
+	update_term_size(*term);
 	return (1);
 }
 

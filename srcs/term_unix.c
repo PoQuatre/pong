@@ -60,6 +60,8 @@ t_bool	update_term_size(t_term *term)
 	struct winsize	w;
 
 	ioctl(0, TIOCGWINSZ, &w);
+	term->old_cols = term->cols;
+	term->old_rows = term->rows;
 	term->cols = w.ws_col;
 	term->rows = w.ws_row;
 	return (1);

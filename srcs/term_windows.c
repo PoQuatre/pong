@@ -57,6 +57,8 @@ t_bool	update_term_size(t_term *term)
 	CONSOLE_SCREEN_BUFFER_INFO	csbi;
 
 	GetConsoleScreenBufferInfo(term->h_stdout, &csbi);
+	term->old_cols = term->cols;
+	term->old_rows = term->rows;
 	term->cols = csbi.srWindow.Right - csbi.srWindow.Left + 1;
 	term->rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
 	return (1);
