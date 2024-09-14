@@ -1,26 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/13 20:22:47 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/14 14:08:08 by mle-flem         ###   ########.fr       */
+/*   Created: 2024/09/14 13:53:13 by mle-flem          #+#    #+#             */
+/*   Updated: 2024/09/14 15:58:53 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "libft.h"
 
-int		ft_getchar(void);
-int		ft_strlen(char *str);
-void	ft_putstr(char *str);
-void	ft_putstr_err(char *str);
-void	ft_putnbr(int nb);
-void	ft_putnbr_err(int nb);
-char	*ft_itoa(int nb, char *dest);
-char	*ft_strcat(char *dest, char *src);
-char	*ft_strrev(char *str);
+char	*ft_itoa(int nb, char *dest)
+{
+	char	*ptr;
+	int		tmp_nb;
 
-#endif
+	ptr = dest;
+	tmp_nb = nb;
+	if (nb == 0)
+		*ptr++ = '0';
+	else
+	{
+		while (nb)
+		{
+			tmp_nb = nb;
+			nb /= 10;
+			*ptr++ = "9876543210123456789"[9 + (tmp_nb - nb * 10)];
+		}
+	}
+	if (tmp_nb < 0)
+		*ptr++ = '-';
+	*ptr = '\0';
+	ft_strrev(dest);
+	return (dest);
+}

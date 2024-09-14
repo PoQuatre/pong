@@ -6,7 +6,7 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 21:50:19 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/14 02:06:20 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/14 15:48:13 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "ansi.h"
 #include "errors.h"
 #include "game.h"
+#include "libft.h"
 #include "term.h"
 #include "timer.h"
 #include "types.h"
@@ -43,12 +44,14 @@ t_bool	start_game(char *prog_name, t_term **term, t_game_state **game_state)
 	set_canon_off(*term);
 	enter_fullscreen();
 	update_term_size(*term);
+	ft_putstr("[?25l");
 	return (1);
 }
 
 void	stop_game(t_term *term, t_game_state *game_state)
 {
 	exit_fullscreen();
+	ft_putstr("[?25h");
 	restore_term(term);
 	free(term);
 	free(game_state->ball_position);
@@ -71,9 +74,7 @@ int	main(int ac, char **av)
 	while (!g_stop)
 	{
 		update_term_size(term);
-		printf("Updated term size to: %d x %d\n", term->cols, term->rows);
 		end = get_time_in_seconds();
-		printf("Time between iterations: %.9f seconds\n", end - start);
 		update_game_state(term, state, end - start);
 		draw_game_state(term, state, end - start);
 		flush_term_stdin(term);

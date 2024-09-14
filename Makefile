@@ -4,6 +4,7 @@ NAME = pong
 
 SRC = srcs/main.c \
 	  srcs/game.c \
+	  srcs/draw_utils.c \
 	  srcs/ansi.c \
 	  srcs/errors.c \
 	  srcs/term_utils.c \
@@ -14,6 +15,9 @@ SRC = srcs/main.c \
 	  srcs/libft/ft_putstr_err.c \
 	  srcs/libft/ft_putnbr.c \
 	  srcs/libft/ft_putnbr_err.c \
+	  srcs/libft/ft_itoa.c \
+	  srcs/libft/ft_strrev.c \
+	  srcs/libft/ft_strcat.c \
 
 IS_UNIX := $(shell echo | $(CC) -dM -E - | grep -E '_WIN32')
 ifeq ($(IS_UNIX),)
@@ -55,3 +59,7 @@ fclean: clean
 
 .PHONY: re
 re: fclean all
+
+.PHONY: run
+run: all
+	./$(NAME)

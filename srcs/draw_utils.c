@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/13 20:22:47 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/14 14:08:08 by mle-flem         ###   ########.fr       */
+/*   Created: 2024/09/14 15:53:23 by mle-flem          #+#    #+#             */
+/*   Updated: 2024/09/14 15:57:26 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "game_utils.h"
+#include "libft.h"
+#include "types.h"
 
-int		ft_getchar(void);
-int		ft_strlen(char *str);
-void	ft_putstr(char *str);
-void	ft_putstr_err(char *str);
-void	ft_putnbr(int nb);
-void	ft_putnbr_err(int nb);
-char	*ft_itoa(int nb, char *dest);
-char	*ft_strcat(char *dest, char *src);
-char	*ft_strrev(char *str);
+void	draw_separator(t_term *term)
+{
+	unsigned int	i;
+	char			ansi[32];
 
-#endif
+	i = 0;
+	ansi[0] = '\0';
+	ft_strcat(ansi, "[0;");
+	ft_itoa(term->cols / 2, &ansi[4]);
+	ft_strcat(ansi, "H");
+	ft_putstr(ansi);
+	while (i++ < term->rows)
+		ft_putstr("[90m╏[0m[B[D");
+}
