@@ -18,6 +18,7 @@ SRC = srcs/main.c \
 	  srcs/libft/ft_itoa.c \
 	  srcs/libft/ft_strrev.c \
 	  srcs/libft/ft_strcat.c \
+	  srcs/libft/ft_clamp.c \
 
 IS_UNIX := $(shell echo | $(CC) -dM -E - | grep -E '_WIN32')
 ifeq ($(IS_UNIX),)
