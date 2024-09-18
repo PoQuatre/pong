@@ -6,7 +6,7 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 21:50:19 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/18 11:38:51 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/18 11:47:03 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "ansi.h"
 #include "errors.h"
 #include "game.h"
 #include "libft.h"
@@ -41,15 +40,13 @@ t_bool	start_game(char *prog_name, t_term **term, t_game_state **game_state)
 		return (0);
 	set_echo_off(*term);
 	set_canon_off(*term);
-	enter_fullscreen();
-	ft_putstr("[?25l");
+	ft_putstr("\x1b[?1049h\x1b[2J\x1b[?25l");
 	return (1);
 }
 
 void	stop_game(t_term *term, t_game_state *game_state)
 {
-	exit_fullscreen();
-	ft_putstr("[?25h");
+	ft_putstr("\x1b[?1049l\x1b[?25h");
 	restore_term(term);
 	free(term);
 	free(game_state);

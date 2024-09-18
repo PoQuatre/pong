@@ -5,7 +5,6 @@ NAME = pong
 SRC = srcs/main.c \
 	  srcs/game.c \
 	  srcs/draw_utils.c \
-	  srcs/ansi.c \
 	  srcs/errors.c \
 	  srcs/term_utils.c \
 	  srcs/timer.c \

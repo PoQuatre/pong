@@ -6,13 +6,12 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 22:53:20 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/18 11:43:44 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/18 11:48:22 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-#include "ansi.h"
 #include "game.h"
 #include "game_utils.h"
 #include "libft.h"
@@ -63,9 +62,8 @@ void	update_game_state(t_term *term, t_game_state *state, double delta)
 
 void	draw_game_state(t_term *term, t_game_state *state, double delta)
 {
-	(void) state;
 	(void) delta;
-	clear_screen();
+	ft_putstr("\x1b[2J");
 	draw_separator(term);
 	draw_ball(state);
 }
