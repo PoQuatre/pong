@@ -6,7 +6,7 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 21:50:19 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/18 11:34:42 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/18 11:38:51 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	main(int ac, char **av)
 
 	(void) ac;
 	signal(SIGINT, sigint_handler);
+	signal(SIGTERM, sigint_handler);
 	if (!start_game(basename(av[0]), &term, &state))
 		return (1);
 	start = get_time_in_seconds();
