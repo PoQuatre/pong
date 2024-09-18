@@ -6,7 +6,7 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 22:53:20 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/18 11:36:36 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/18 11:43:44 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,5 @@ void	draw_game_state(t_term *term, t_game_state *state, double delta)
 	(void) delta;
 	clear_screen();
 	draw_separator(term);
+	draw_ball(state);
 }
