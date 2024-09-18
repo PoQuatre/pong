@@ -62,10 +62,11 @@ typedef struct s_game_state
 {
 	int			player_score;
 	int			enemy_score;
-	int			player_position;
-	int			enemy_position;
-	t_vector	*ball_position;
-	t_vector	*ball_velocity;
+	int			player_pos;
+	int			enemy_pos;
+	int			ball_color;
+	t_vector	ball_pos;
+	t_vector	ball_vel;
 }	t_game_state;
 
 #endif
