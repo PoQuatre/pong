@@ -6,7 +6,7 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:12:43 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/14 02:12:08 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/18 07:57:04 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,13 @@ void	restore_term(t_term *term)
 	SetConsoleMode(term->h_stdin, term->original);
 }
 
-t_bool	update_term_size(t_term *term)
+t_bool	update_term(t_term *term)
 {
 	CONSOLE_SCREEN_BUFFER_INFO	csbi;
+	DWORD						stdin_size;
 
+	GetNumberOfConsoleInputEvents(term->h_stdin, &stdin_size);
+	term->stdin_size = stdin_size;
 	GetConsoleScreenBufferInfo(term->h_stdout, &csbi);
 	term->old_cols = term->cols;
 	term->old_rows = term->rows;

@@ -6,13 +6,12 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 21:50:19 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/14 15:48:13 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:29:03 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libgen.h>
 #include <signal.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -43,7 +42,6 @@ t_bool	start_game(char *prog_name, t_term **term, t_game_state **game_state)
 	set_echo_off(*term);
 	set_canon_off(*term);
 	enter_fullscreen();
-	update_term_size(*term);
 	ft_putstr("[?25l");
 	return (1);
 }
@@ -73,12 +71,12 @@ int	main(int ac, char **av)
 	start = get_time_in_seconds();
 	while (!g_stop)
 	{
-		update_term_size(term);
+		update_term(term);
 		end = get_time_in_seconds();
 		update_game_state(term, state, end - start);
 		draw_game_state(term, state, end - start);
 		flush_term_stdin(term);
-		sleep(1);
+		usleep(40000);
 		start = end;
 	}
 	stop_game(term, state);

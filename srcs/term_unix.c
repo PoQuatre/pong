@@ -6,7 +6,7 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:12:43 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/14 02:11:57 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/18 07:57:00 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,13 @@ void	restore_term(t_term *term)
 	set_canon_on(term);
 }
 
-t_bool	update_term_size(t_term *term)
+t_bool	update_term(t_term *term)
 {
 	struct winsize	w;
+	int				stdin_size;
 
+	ioctl(0, FIONREAD, &stdin_size);
+	term->cols = stdin_size;
 	ioctl(0, TIOCGWINSZ, &w);
 	term->old_cols = term->cols;
 	term->old_rows = term->rows;

@@ -6,7 +6,7 @@
 /*   By: mle-flem <mle-flem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 23:58:10 by mle-flem          #+#    #+#             */
-/*   Updated: 2024/09/14 01:32:37 by mle-flem         ###   ########.fr       */
+/*   Updated: 2024/09/18 07:55:23 by mle-flem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	set_term_bit(t_term *term, tcflag_t bit, t_bool state);
 
 # endif
 
-t_bool	update_term_size(t_term *term);
+t_bool	update_term(t_term *term);
 void	flush_term_stdin(t_term *term);
 void	restore_term(t_term *term);
 
