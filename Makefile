@@ -63,3 +63,7 @@ re: fclean all
 .PHONY: run
 run: all
 	./$(NAME)
+
+.PHONY: rerun
+rerun: re
+	./$(NAME)
